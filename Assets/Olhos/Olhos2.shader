@@ -51,7 +51,7 @@ Shader "Olhos2" {
             );
 
              output.tex = input.tex;
-            output.pos = UnityObjectToClipPos(input.vertex);
+            output.pos = UnityObjectToClipPos(input.vertex.xyz);
      
             return output;
          }

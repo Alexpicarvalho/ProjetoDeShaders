@@ -75,12 +75,14 @@ Shader "Unlit/HullOutlines"
             struct Attributes
             {
                 float4 positionOS : POSITION;
-                float3 smoothNormalOS : TEXCOORD1;
+                float4 smoothNormalOS : NORMAL;
                 float2 tex_uv : TEXCOORD0;
+                float4 pos : TEXCOORD1;
             };
 
             struct Varyings
             {
+                float4 positionStart : TEXCOORD1;
                 float4 positionCS : SV_POSITION;
                  float2 tex_uv : TEXCOORD0;
             };
@@ -90,9 +92,9 @@ Shader "Unlit/HullOutlines"
 
             Varyings vert(Attributes i)
             {
-                Varyings o = (Varyings)0;
+                Varyings o;
 
-                float3 smoothNormal = UnityObjectToWorldNormal(i.smoothNormalOS);
+                float3 smoothNormal = UnityObjectToWorldNormal(i.smoothNormalOS.xyz);
 
                 float finalOutlineThickness;
                 #if defined(_AnimateOutline)
@@ -102,6 +104,8 @@ Shader "Unlit/HullOutlines"
                 #endif
 
                 float3 pos = mul(unity_ObjectToWorld, i.positionOS).xyz + finalOutlineThickness * smoothNormal;
+                float3 posStart = mul(unity_ObjectToWorld, i.positionOS).xyz * smoothNormal;
+                o.positionStart = UnityWorldToClipPos(posStart);
 
                 o.positionCS = UnityWorldToClipPos(pos);
 
@@ -111,8 +115,13 @@ Shader "Unlit/HullOutlines"
             half4 frag(Varyings i) : SV_TARGET
             {
                 //half4 col = tex2D(_MainTex, i.tex_uv);
-
-                return  _OutlineColor;
+                if (distance(i.positionStart, i.positionCS) < _OutlineThickness) {
+                    return _OutlineColor;
+                }
+                else {
+                 return half4(0,0,0,0);
+                }
+                
             }
 
             ENDCG
