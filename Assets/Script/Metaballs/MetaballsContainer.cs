@@ -1,4 +1,5 @@
 //using Unity.VisualScripting;
+using TreeEditor;
 using UnityEngine;
 
 public class MetaballsContainer : MonoBehaviour
@@ -9,6 +10,7 @@ public class MetaballsContainer : MonoBehaviour
     [SerializeField, Range(1f, 20f)] private int m_MetaballCount;
 
     private Vector4[] m_Spheres = new Vector4[20];
+    private Vector4[] m_SpheresWorld = new Vector4[20];
 
     private Vector3[] m_SphereTargets = new Vector3[20];
     private float[] m_SphereSpeeds = new float[20];
@@ -24,21 +26,21 @@ public class MetaballsContainer : MonoBehaviour
             m_Material = meshRenderer.material;
         }
 
-        float containerRadius = transform.localScale.x * 0.5f;
+        float containerRadius = transform.localScale.x * 0.2f;
         float maxRadius = containerRadius * 0.25f;
 
         for (int i = 0; i < m_Spheres.Length; i++)
         {
             float radius = Random.Range(0.05f, maxRadius);
 
-            m_Spheres[i] = transform.position + 
+            m_Spheres[i] = /*transform.position + */
                 Random.insideUnitSphere * (containerRadius - radius);
 
             m_Spheres[i].w = radius;
 
             m_SphereSpeeds[i] = Random.Range(0.05f, 0.2f);
 
-            m_SphereTargets[i] = transform.position +
+            m_SphereTargets[i] = /*transform.position +*/
                 Random.insideUnitSphere * (containerRadius - radius);
         }
     }
@@ -52,8 +54,8 @@ public class MetaballsContainer : MonoBehaviour
 
     private void UpdateMetaballs()
     {
-        float containerRadiusX = transform.localScale.x * 0.8f;
-        float containerRadiusY = transform.localScale.y * 1f;
+        float containerRadiusX = transform.localScale.x * 0.7f;
+        float containerRadiusY = transform.localScale.y * 0.7f;
 
         for (int i = 0;  i < m_MetaballCount; i++)
         {
@@ -63,9 +65,9 @@ public class MetaballsContainer : MonoBehaviour
 
             if (diff.sqrMagnitude < 0.01f)
             {
-                m_SphereTargets[i] = transform.position +
+                m_SphereTargets[i] =  /*transform.position +*/
                 Random.insideUnitSphere * (containerRadiusX - radius);
-                m_SphereTargets[i] = transform.position +
+                m_SphereTargets[i] = /*transform.position +*/
                Random.insideUnitSphere * (containerRadiusY - radius);
 
                 return;
@@ -82,7 +84,11 @@ public class MetaballsContainer : MonoBehaviour
         if (!m_Material) return;
 
         m_Material.SetInt(s_SphereCountProp, m_MetaballCount);
+        for (int i = 0; i < m_MetaballCount; i++)
+        {
+            m_SpheresWorld[i] = m_Spheres[i] + new Vector4(transform.position.x, transform.position.y, transform.position.z, 0);
 
-        m_Material.SetVectorArray(s_SpheresProp, m_Spheres);
+        }
+        m_Material.SetVectorArray(s_SpheresProp, m_SpheresWorld);
     }
 }

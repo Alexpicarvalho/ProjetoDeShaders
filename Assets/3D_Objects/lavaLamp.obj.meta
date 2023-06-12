@@ -1,14 +1,14 @@
 fileFormatVersion: 2
 guid: 6a07d0a4fca7fc74e8eeac249fbbe4a1
 ModelImporter:
-  serializedVersion: 20200
+  serializedVersion: 21300
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: body.001_body.001Mat
-    second: {fileID: 2100000, guid: efd6bda5ceebbea45a776ca8e7da042a, type: 2}
+    second: {fileID: 2100000, guid: afd3c7827bbf40a4c9b8800fbd39b10b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -18,7 +18,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: body.003_MetalMat
-    second: {fileID: 2100000, guid: 7c149ecc860fa774286d4e99cd243fa3, type: 2}
+    second: {fileID: 2100000, guid: b593a04efca8575449bca9d113f39ae3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -28,7 +28,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: hand_Old_MetalMat
-    second: {fileID: 2100000, guid: 3acd58c7cea43324c901c5a2b487a4a9, type: 2}
+    second: {fileID: 2100000, guid: 7fd73fec7eb6f4d44bed9e5ae352a9df, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -39,6 +39,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -68,6 +69,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -79,6 +81,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -121,6 +124,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

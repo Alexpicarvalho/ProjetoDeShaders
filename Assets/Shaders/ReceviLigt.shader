@@ -33,6 +33,8 @@ Shader "Custom/ReceviLigt"
                o.Emission = texColor.rgb;
                o.Alpha = texColor.a;
            }
+
+           
            
 
           // o.Albedo = _Color.rgb;
