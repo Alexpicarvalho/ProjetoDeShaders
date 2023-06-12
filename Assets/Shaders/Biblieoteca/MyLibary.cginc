@@ -1,6 +1,6 @@
 
 float3 Black() {
-	return float3 (0,0,0);
+	return float4 (0,0,0,0);
 }
 
 bool DrawSquare(float2 center,float lado,float2 ponto){
