@@ -11,7 +11,7 @@ Shader "Hidden/RetroShader"
 
 
 		_ScrollSpeed("Scroll Speed", Range(1, 1000)) = 10
-		_SliceFrequency("Slice Frequency", Range(0, 100)) = 10
+		_SliceFrequency("Slice Frequency", Range(0, 500)) = 10
 
 	}
 		SubShader
@@ -83,7 +83,7 @@ Shader "Hidden/RetroShader"
 					
 					if (sliceValue > 0)
 					{
-						col = tex2D(_Pixelated, i.uvImage);
+						col += tex2D(_Pixelated, i.uvImage);
 					}
 					col.rgb *= vignette;
 
