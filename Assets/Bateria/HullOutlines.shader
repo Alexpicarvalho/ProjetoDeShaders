@@ -115,12 +115,9 @@ Shader "Unlit/HullOutlines"
             half4 frag(Varyings i) : SV_TARGET
             {
                 //half4 col = tex2D(_MainTex, i.tex_uv);
-                if (distance(i.positionStart, i.positionCS) < _OutlineThickness) {
+                
                     return _OutlineColor;
-                }
-                else {
-                 return half4(0,0,0,0);
-                }
+              
                 
             }
 
