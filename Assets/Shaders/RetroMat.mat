@@ -31,9 +31,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _PixelationIntensity: 0.09
-    - _SaturationReduction: 1
-    - _ScrollSpeed: 403
+    - _SaturationReduction: 0.715
+    - _ScrollSpeed: 424
     - _SliceFrequency: 500
-    - _VignetteIntensity: 0.591
+    - _VignetteIntensity: 0.381
     m_Colors: []
   m_BuildTextureStacks: []
