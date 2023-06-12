@@ -7,14 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: windMat
-  m_Shader: {fileID: 4800000, guid: 080f4cfb6359862498cf4e00cf7d1167, type: 3}
+  m_Name: windd_mat
+  m_Shader: {fileID: 4800000, guid: 366bdeacfd46bb54682def4b2fec17b7, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -26,11 +26,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Cutoff: 0.384
-    - _ShakeBending: 0.358
-    - _ShakeDisplacement: 0.369
-    - _ShakeTime: 0.205
-    - _ShakeWindspeed: 0.625
-    m_Colors:
-    - _Color: {r: 0.4130696, g: 0.745283, b: 0.376157, a: 1}
+    - _Cutoff: 0.87
+    - _WindFrequency: 1.55
+    - _WindSpeed: 1.2
+    - _WindStrength: 0.091
+    m_Colors: []
   m_BuildTextureStacks: []
