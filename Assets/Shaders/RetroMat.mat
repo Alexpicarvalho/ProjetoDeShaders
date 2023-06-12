@@ -25,15 +25,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Pixelated:
-        m_Texture: {fileID: 2800000, guid: d4acbe4bccbbd334a8f41e60d6d78e63, type: 3}
+        m_Texture: {fileID: 2800000, guid: 144ffc71ffdcb40439802d06a80ad37d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _PixelationIntensity: 0.09
-    - _SaturationReduction: 1
-    - _ScrollSpeed: 1
-    - _SliceFrequency: 100
-    - _VignetteIntensity: 0.51
+    - _SaturationReduction: 0.715
+    - _ScrollSpeed: 424
+    - _SliceFrequency: 500
+    - _VignetteIntensity: 0.381
     m_Colors: []
   m_BuildTextureStacks: []
