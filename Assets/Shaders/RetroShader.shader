@@ -80,7 +80,7 @@ Shader "Hidden/RetroShader"
 
 					float sliceValue = sin((i.uv.y + _Time.x * _ScrollSpeed) * _SliceFrequency);
 					
-
+					
 					if (sliceValue > 0)
 					{
 						col = tex2D(_Pixelated, i.uvImage);
