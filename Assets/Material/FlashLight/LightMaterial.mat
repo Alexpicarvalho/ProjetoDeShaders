@@ -2,18 +2,19 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LightMaterial
-  m_Shader: {fileID: 4800000, guid: a6672cef18cb963418e53479fc035d39, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: ee334d0941f674e479628f14ac5140de, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -59,6 +60,7 @@ Material:
         m_Texture: {fileID: 2800000, guid: c63171bb260f4fd42b536fdf9fdafe3d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -71,7 +73,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Slide: 3.4
+    - _Slide: 6.98
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -80,5 +82,5 @@ Material:
     m_Colors:
     - _Color: {r: 0.24056602, g: 0.56816506, b: 1, a: 0.68235296}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _VectorGlovalPosition: {r: -0.08, g: 0.96, b: 0.04, a: 0.39}
+    - _VectorGlovalPosition: {r: 0.39, g: 0.96, b: 0.04, a: 0.39}
   m_BuildTextureStacks: []
