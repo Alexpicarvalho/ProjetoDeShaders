@@ -33,43 +33,6 @@ Shader "Olhos2" {
             float3 viewDir : TEXCOORD1;
          };
 
-
-         
-        float3 rotGeral(float3 pontoEntradaGeral, float yaw, float pitch, float roll){
-            
-            
-        yaw = (yaw*3.14)/180;
-        pitch = (pitch*3.14)/180;
-        roll = (roll*3.14)/180;
-        float3x3 matrizGeral = {cos(yaw) * cos(pitch), cos(yaw) * sin(pitch) * sin(roll) - sin(yaw) * cos(roll), cos(yaw) * sin(pitch) * cos(roll) + sin(yaw) * sin(roll),
-                                sin(yaw) * cos(pitch), sin(yaw) * sin(pitch) * sin(roll) + cos(yaw) * cos(roll), sin(yaw) * sin(pitch) * cos(roll) - cos(yaw) * sin(roll),
-                                -sin(pitch), cos(pitch) * sin(roll), cos(pitch) * cos(roll)
-                            };
-        return mul(matrizGeral, pontoEntradaGeral);
-            
-        }
-
-
-        float4x4 lookAt(float3 eye, float3 at, float3 up)
-        {
-          float3 zaxis = normalize(at - eye);    
-          float3 xaxis = normalize(cross(zaxis, up));
-          float3 yaxis = cross(zaxis, xaxis);
-
-          
-
-          float4x4 viewMatrix = {
-            float4(xaxis.x, xaxis.y, xaxis.z, dot(xaxis, eye)),
-            float4(yaxis.x, yaxis.y, yaxis.z, dot(yaxis, eye)),
-            float4(zaxis.x, zaxis.y, zaxis.z, dot(zaxis, eye)),
-            float4(0, 0, 0, 1)
-          };
-
-          return viewMatrix;
-        }
-
-
-
          vertexOutput vert(vertexInput input) 
          {
             vertexOutput output;
@@ -87,27 +50,15 @@ Shader "Olhos2" {
                 dot(viewDir, normalWS)
             );
 
+             output.tex = input.tex;
             output.pos = UnityObjectToClipPos(input.vertex);
      
-
-
-             //output.pos = UnityObjectToClipPos(mul(lookAt(input.vertex.xyz, mul(unity_WorldToObject, _WorldSpaceCameraPos), float3(0,1,0)), input.vertex)) ;
-             output.tex = input.tex;
-            //output.pos = UnityObjectToClipPos(rotGeral(input.vertex.xyz, viewDir.z - input.vertex.x ,  viewDir.y- input.vertex.y ,  viewDir.z- input.vertex.z));
-       
-
-           
-          
-
             return output;
          }
 
          float4 frag(vertexOutput input) : SV_TARGET
-         {
-
-            
+         {       
             return tex2D(_MainTex, input.tex / 2 - input.viewDir.xy);   
-            //return (1,1,1,1);
 
          }
 
