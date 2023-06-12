@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PositionInWorld : MonoBehaviour
+public class PositionInWorldToShader : MonoBehaviour
 {
     [SerializeField] MeshRenderer m_MeshRenderer;
     
