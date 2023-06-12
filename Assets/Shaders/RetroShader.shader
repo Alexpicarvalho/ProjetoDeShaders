@@ -9,6 +9,10 @@ Shader "Hidden/RetroShader"
 		_VignetteIntensity("Vignette Intensity", Range(0,1)) = 0.6
 		_SaturationReduction("Saturation Reduction", Range(0,1)) = 0.4
 
+
+		_ScrollSpeed("Scroll Speed", Range(1, 1000)) = 10
+		_SliceFrequency("Slice Frequency", Range(0, 100)) = 10
+
 	}
 		SubShader
 		{
@@ -32,6 +36,7 @@ Shader "Hidden/RetroShader"
 				struct v2f
 				{
 					float2 uv : TEXCOORD0;
+					float2 uvImage : TEXCOORD2;
 					float4 vertex : SV_POSITION;
 					float2 screenPos : TEXCOORD1;
 				};
@@ -41,6 +46,7 @@ Shader "Hidden/RetroShader"
 					v2f o;
 					o.vertex = UnityObjectToClipPos(v.vertex);
 					o.uv = v.uv;
+					o.uvImage = v.uv;
 					o.screenPos = o.vertex.xy / o.vertex.w;
 					return o;
 				}
@@ -49,6 +55,8 @@ Shader "Hidden/RetroShader"
 				sampler2D _Pixelated;
 				float _VignetteIntensity;
 				float _SaturationReduction;
+				float _ScrollSpeed;
+				float _SliceFrequency;
 
 				fixed4 frag(v2f i) : SV_Target
 				{
@@ -68,6 +76,15 @@ Shader "Hidden/RetroShader"
 					fixed4 col = tex2D(_MainTex, i.uv);
 					float3 gray = dot(col.rgb, float3(0.3, 0.6, 0.1));
 					col.rgb = lerp(gray, col.rgb, _SaturationReduction);
+					col += tex2D(_Pixelated, i.uv);
+
+					float sliceValue = sin((i.uv.y + _Time.x * _ScrollSpeed) * _SliceFrequency);
+					
+
+					if (sliceValue > 0)
+					{
+						col = tex2D(_Pixelated, i.uvImage);
+					}
 					col.rgb *= vignette;
 
 					return col;

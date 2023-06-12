@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RetroMat
-  m_Shader: {fileID: 4800000, guid: ac7eef5f20d8c974e95e735fd61b0d6d, type: 3}
+  m_Shader: {fileID: 4800000, guid: aaaef34476e0fc84fb457b165bf66824, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -24,7 +24,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Pixelated:
+        m_Texture: {fileID: 2800000, guid: d4acbe4bccbbd334a8f41e60d6d78e63, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _PixelationIntensity: 0.09
+    - _SaturationReduction: 1
+    - _ScrollSpeed: 1
+    - _SliceFrequency: 100
+    - _VignetteIntensity: 0.51
     m_Colors: []
   m_BuildTextureStacks: []
