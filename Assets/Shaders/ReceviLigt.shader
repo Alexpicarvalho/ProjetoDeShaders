@@ -3,8 +3,8 @@ Shader "Custom/ReceviLigt"
     Properties
     {
         _Color("Color", Color) = (1,1,1,1)
-        _VectorGlovalPosition ("display name", Vector) = (0,0,0,0)
-        _Slide("Slidetest",Range(0,3)) =0
+        _VectorGlovalPosition ("PositioInTheWorld", Vector) = (0,0,0,0)
+        _Slide("Slidetest",Range(0,10)) =0
         _TexureSeta ("display name", 2D) = "defaulttexture" {}
     }
 
@@ -12,8 +12,8 @@ Shader "Custom/ReceviLigt"
     {
      Cull off
         CGPROGRAM
-            #pragma surface surf Lambert 
-            #include "Assets\Script\Shardes\Biblieoteca\MyLibary.cginc"
+            #pragma surface surf Lambert alpha
+            #include "Assets\Shaders\Biblieoteca\MyLibary.cginc"
 
         struct Input {
         float2 uv_TexureSeta;
@@ -25,12 +25,21 @@ Shader "Custom/ReceviLigt"
        float _Slide;
        sampler2D _TexureSeta;
 
-        void surf(Input IN, inout SurfaceOutput o) {
-       if( IsInsideCircle(_VectorGlovalPosition.xy,IN.worldPos.xy,_Slide)) o.Emission= tex2D(_TexureSeta,IN.uv_TexureSeta);
-      // o.Albedo = Black();
-        }
-        
-        ENDCG
+       void surf(Input IN, inout SurfaceOutput o)
+       {
+           if (IsInsideCircle(_VectorGlovalPosition.xy, IN.worldPos.xy, _Slide))
+           {
+               fixed4 texColor = tex2D(_TexureSeta, IN.uv_TexureSeta);
+               o.Emission = texColor.rgb;
+               o.Alpha = texColor.a;
+           }
+           
+
+          // o.Albedo = _Color.rgb;
+           //o.Alpha *= _Color.a;
+       }
+       ENDCG
     }
+
         FallBack "Diffuse"
 }
