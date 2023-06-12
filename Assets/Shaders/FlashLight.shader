@@ -5,23 +5,28 @@ Shader "Unlit/FlashLight"
         _Color("Color", Color) = (1, 1, 1, 1)
         _VectorGlovalPosition("PositioInTheWorld", Vector) = (0, 0, 0, 0)
         _Slide("Slidetest", Range(0, 10)) = 0
-        _TexureSeta("display name", 2D) = "defaulttexture" {}
+        _MainTex("display name", 2D) = "defaulttexture" {}
     }
 
         SubShader
     {
-        Tags { "RenderType" = "Opaque" }
+        Tags { "RenderType" = "Transparent" 
+                "Queue" = "Transparent"}
         LOD 100
 
         Pass
         {
+            // SrcAlpha alfa da cor do resultado final
+            // OneMinus... é 1 - alpha do sharde
+            Blend SrcAlpha OneMinusSrcAlpha
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            
             // make fog work
-
+            
             #include "UnityCG.cginc"
-        #include "Assets\Shaders\Biblieoteca\MyLibary.cginc"
+            #include "Assets\Shaders\Biblieoteca\MyLibary.cginc"
 
             struct appdata
             {
@@ -33,6 +38,7 @@ Shader "Unlit/FlashLight"
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                float4 worldSpacePositionShaders : TEXCOORD1;
             };
 
             sampler2D _MainTex;
@@ -40,12 +46,13 @@ Shader "Unlit/FlashLight"
             float4 _Color;
             float4 _VectorGlovalPosition;
             float _Slide;
-            sampler2D _TexureSeta;
+            
 
             v2f vert(appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
+                o.worldSpacePositionShaders = mul(unity_ObjectToWorld, v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
             }
@@ -53,17 +60,18 @@ Shader "Unlit/FlashLight"
             fixed4 frag(v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
+                fixed4 col;
 
             // apply flashlight effect
-            if (IsInsideCircle(_VectorGlovalPosition.xy, i.vertex.xy, _Slide))
+            if (IsInsideCircle(_VectorGlovalPosition.xy, i.worldSpacePositionShaders.xy, _Slide))
             {
-                fixed4 texColor = tex2D(_TexureSeta, i.uv);
+                fixed4 texColor = tex2D(_MainTex, i.uv);
                 col.rgb = texColor.rgb;
                 col.a = texColor.a;
             }
+            else col = fixed4(0, 0, 0, 0);
 
-            // apply fog
+            
 
             return col;
         }

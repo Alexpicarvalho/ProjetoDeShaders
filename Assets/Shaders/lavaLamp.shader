@@ -27,12 +27,13 @@ Shader "Custom/lavaLamp"
 		{
 			Tags
 			{
-				"RenderType" = "Opaque"
-				"Queue" = "Geometry"
+				"RenderType" = "Transparent"
+				"Queue" = "Transparent"
 			}
 
 			Cull Off
-
+			 Blend SrcAlpha OneMinusSrcAlpha
+			ZWrite Off
 			CGPROGRAM
 
 			#pragma vertex vert
@@ -47,51 +48,57 @@ Shader "Custom/lavaLamp"
 			};
 
 			struct Varyings
-{
-	float4 positionCS : SV_POSITION;
+			{
+			float4 positionCS : SV_POSITION;
 
-	float3 normalWS : TEXCOORD0;
-	float3 viewDirWS : TEXCOORD1;
-	float3 positionNoTranslationWS : TEXCOORD2;
-};
+			float3 normalWS : TEXCOORD0;
+			float3 viewDirWS : TEXCOORD1;
+			float3 positionNoTranslationWS : TEXCOORD2;
+			};
 			
 			float _GlassThickness;
 			half4 _GlassColor;
 			
 			Varyings vert(Attributes i)
-{
-	Varyings o = (Varyings)0;
+			{
+			Varyings o = (Varyings)0;
 
-	// Vidro
-	float3 pos = i.positionOS.xyz - _GlassThickness * i.normalOS;
-	o.positionCS = UnityObjectToClipPos(pos);
-	o.positionNoTranslationWS = mul((float3x3)unity_ObjectToWorld, pos);
+			// Vidro
+			float3 pos = i.positionOS.xyz - _GlassThickness * i.normalOS;
+			o.positionCS = UnityObjectToClipPos(pos);
+			o.positionNoTranslationWS = mul((float3x3)unity_ObjectToWorld, pos);
 
-	// Objeto transparente
-	o.normalWS = UnityObjectToWorldNormal(i.normalOS);
-	o.viewDirWS = normalize(WorldSpaceViewDir(i.positionOS));
+			// Objeto transparente
+			o.normalWS = UnityObjectToWorldNormal(i.normalOS);
+			o.viewDirWS = normalize(WorldSpaceViewDir(i.positionOS));
 
-	return o;
-}
+			return o;
+			}
 			
 			half4 frag(Varyings i) : SV_TARGET
 				{
-	// Objeto transparente
-	float fresnel = pow(1 - saturate(dot(i.normalWS, i.viewDirWS)), 3);
-	float dotP = (dot(i.normalWS, _WorldSpaceLightPos0.xyz) + 1) * 0.5;
-	half4 col = _GlassColor;
-	col.rgb *= dotP;
-	col *= 0.2 + fresnel * 0.8;
+				// Objeto transparente
+					float fresnel = pow(1 - saturate(dot(i.normalWS, i.viewDirWS)), 3);
+					float dotP = (dot(i.normalWS, _WorldSpaceLightPos0.xyz) + 1) * 0.5;
+					half4 col = _GlassColor;
+					col.rgb *= dotP;
+					col *= 0.2 + fresnel * 0.8;
 
-	return col;
+				return col;
 }
-			ENDCG
-		}
+				ENDCG
+				}
 		//Esferas
 		Pass
 		{
+			Tags
+			{
+				"RenderType" = "Transparent"
+				"Queue" = "Transparent+10" 
+			}
 		Cull Front
-		ZTest Always
+		ZTest Always // TESTA A DISTANCIA ENTRE A CAMERA (VER SE UM PIXEL ESTA A FRENTE OU NAO DO OUTRO)
+		// always passa sempre o teste, mesmo com o que esteja atras ele passa na mesma 
 
 		Blend SrcAlpha OneMinusSrcAlpha
 
