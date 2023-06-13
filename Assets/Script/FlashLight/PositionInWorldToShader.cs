@@ -35,7 +35,7 @@ public class PositionInWorldToShader : MonoBehaviour
 
         if (_currentCharge <= 0) _lanternOn = false;
 
-        if (_lanternOn) return;
+        if (!_lanternOn) return;
 
         // Obtém a posição do ponto para o qual o objeto está apontando
         Vector3 pointedPosition = GetPointedPosition();

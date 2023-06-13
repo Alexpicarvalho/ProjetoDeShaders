@@ -73,7 +73,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Slide: 3.75
+    - _Slide: 1.65
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -82,5 +82,5 @@ Material:
     m_Colors:
     - _Color: {r: 0.24056602, g: 0.56816506, b: 1, a: 0.68235296}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _VectorGlovalPosition: {r: 784.1288, g: 1.8069843, b: 93.980415, a: 0}
+    - _VectorGlovalPosition: {r: 601.1336, g: 5.2166405, b: 194.00987, a: 0}
   m_BuildTextureStacks: []
