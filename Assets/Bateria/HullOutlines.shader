@@ -4,7 +4,7 @@ Shader "Unlit/HullOutlines"
     {
         _OutlineColor ("Outline Color", Color) = (0, 0, 0, 1)
         _MainTex("Main texture", 2D) = "MainTexture" {}
-        _OutlineThickness ("Outline thickness", Float) = 0.1
+        _OutlineThickness ("Outline thickness", Range(0, 0.0002)) = 0.0001
 
         [Toggle(_AnimateOutline)] _Animate ("Animate Outline", Float) = 0
     }
@@ -83,8 +83,10 @@ Shader "Unlit/HullOutlines"
             struct Varyings
             {
                 float4 positionStart : TEXCOORD1;
+                float4 positionEnd : TEXCOORD2;
                 float4 positionCS : SV_POSITION;
-                 float2 tex_uv : TEXCOORD0;
+                float2 tex_uv : TEXCOORD0;
+                float3 normal : NORMAL;
             };
 
             half4 _OutlineColor;
@@ -96,7 +98,7 @@ Shader "Unlit/HullOutlines"
 
                 float3 smoothNormal = UnityObjectToWorldNormal(i.smoothNormalOS.xyz);
 
-                float finalOutlineThickness;
+                float finalOutlineThickness = 1;
                 #if defined(_AnimateOutline)
                     finalOutlineThickness = _OutlineThickness * (1 + sin(_Time.y));
                 #else
@@ -104,10 +106,8 @@ Shader "Unlit/HullOutlines"
                 #endif
 
                 float3 pos = mul(unity_ObjectToWorld, i.positionOS).xyz + finalOutlineThickness * smoothNormal;
-                float3 posStart = mul(unity_ObjectToWorld, i.positionOS).xyz * smoothNormal;
-                o.positionStart = UnityWorldToClipPos(posStart);
 
-                o.positionCS = UnityWorldToClipPos(pos);
+                o.positionCS = UnityWorldToClipPos(pos + smoothNormal * _OutlineThickness);
 
                 return o;
             }
@@ -115,8 +115,8 @@ Shader "Unlit/HullOutlines"
             half4 frag(Varyings i) : SV_TARGET
             {
                 //half4 col = tex2D(_MainTex, i.tex_uv);
-                
-                    return _OutlineColor;
+                //if (i.positionCS * i.normal < i.positionCS * )
+                   return _OutlineColor;
               
                 
             }
